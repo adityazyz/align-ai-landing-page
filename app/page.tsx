@@ -78,7 +78,7 @@ export default function AlignAiHero() {
              
 
               {/* Sign In Button - only show if not signed in */}
-              {!isSignedIn && (
+              {/* {!isSignedIn && (
                 <button 
                   onClick={() => router.push('/sign-in')}
                   className={`group px-6 py-2.5 rounded-xl font-medium text-sm transition-all duration-300 backdrop-blur-sm flex items-center ${
@@ -88,9 +88,9 @@ export default function AlignAiHero() {
                   }`}
                 >
                   Coming Soon!
-                  {/* <ArrowRight className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" /> */}
+                   <ArrowRight className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" /> 
                 </button>
-              )}
+              )} */}
 
               
             </div>
