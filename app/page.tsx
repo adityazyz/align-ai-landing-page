@@ -1,15 +1,9 @@
 "use client";
 import React, { useState, useEffect } from 'react';
 import { ChevronRight, Play, Users, Brain, BarChart3, CheckCircle2, Moon, Sun, FileText, Database, MessageSquare, ArrowRight, LogOut } from 'lucide-react';
-import { useRouter } from 'next/navigation';
 import Image from 'next/image';
-import { Toaster } from 'react-hot-toast';
 
 export default function AlignAiHero() {
-  const router = useRouter();
-  const isSignedIn = false; 
-
-
   const [darkMode, setDarkMode] = useState(true);
   const [currentFeature, setCurrentFeature] = useState(0);
 
@@ -31,12 +25,13 @@ export default function AlignAiHero() {
 
   const toggleDarkMode = () => setDarkMode(!darkMode);
 
+  const isSignedIn = false;
 
   return (
     <div className={`min-h-screen transition-all duration-500 ${
       darkMode 
         ? 'bg-gradient-to-br from-black via-gray-900 to-purple-900/30' 
-        : 'bg-gradient-to-br from-white via-gray-50 to-purple-100/30'
+        : 'bg-gradient-to-br from-purple-50 via-white to-blue-50'
     }`}>
       {/* Header */}
       <header className="relative z-20 w-full">
@@ -63,20 +58,17 @@ export default function AlignAiHero() {
 
             {/* Right side buttons */}
             <div className="flex items-center gap-3">
-            
-                {/* Theme Toggle */}
+              {/* Theme Toggle */}
               <button
                 onClick={toggleDarkMode}
                 className={`p-2.5 rounded-xl transition-all duration-300 backdrop-blur-sm ${
                   darkMode 
                     ? 'bg-white/10 hover:bg-white/20 text-white' 
-                    : 'bg-black/10 hover:bg-black/20 text-gray-900'
+                    : 'bg-purple-100/80 hover:bg-purple-200/80 text-gray-900'
                 }`}
               >
                 {darkMode ? <Sun size={18} /> : <Moon size={18} />}
               </button>
-
-              
             </div>
           </div>
         </div>
@@ -127,33 +119,33 @@ export default function AlignAiHero() {
         `}</style>
         
         {/* Orb 1 - Top Left */}
-        <div className={`absolute -top-20 -left-20 md:top-10 md:left-10 w-48 h-48 md:w-80 md:h-80 rounded-full blur-3xl opacity-20 float-1 ${
-          darkMode ? 'bg-purple-500' : 'bg-purple-400'
+        <div className={`absolute -top-20 -left-20 md:top-10 md:left-10 w-48 h-48 md:w-80 md:h-80 rounded-full blur-3xl float-1 ${
+          darkMode ? 'bg-purple-500 opacity-20' : 'bg-purple-300 opacity-30'
         }`}></div>
         
         {/* Orb 2 - Top Right */}
-        <div className={`absolute -top-10 -right-10 md:top-20 md:right-20 w-40 h-40 md:w-72 md:h-72 rounded-full blur-3xl opacity-15 float-2 ${
-          darkMode ? 'bg-pink-500' : 'bg-pink-400'
+        <div className={`absolute -top-10 -right-10 md:top-20 md:right-20 w-40 h-40 md:w-72 md:h-72 rounded-full blur-3xl float-2 ${
+          darkMode ? 'bg-pink-500 opacity-15' : 'bg-pink-300 opacity-25'
         }`}></div>
         
         {/* Orb 3 - Bottom Right */}
-        <div className={`absolute -bottom-20 -right-20 md:bottom-10 md:right-10 w-56 h-56 md:w-96 md:h-96 rounded-full blur-3xl opacity-15 float-3 ${
-          darkMode ? 'bg-blue-500' : 'bg-blue-400'
+        <div className={`absolute -bottom-20 -right-20 md:bottom-10 md:right-10 w-56 h-56 md:w-96 md:h-96 rounded-full blur-3xl float-3 ${
+          darkMode ? 'bg-blue-500 opacity-15' : 'bg-blue-300 opacity-25'
         }`}></div>
         
         {/* Orb 4 - Bottom Left */}
-        <div className={`absolute -bottom-10 -left-10 md:bottom-20 md:left-20 w-44 h-44 md:w-64 md:h-64 rounded-full blur-3xl opacity-20 float-4 ${
-          darkMode ? 'bg-indigo-500' : 'bg-indigo-400'
+        <div className={`absolute -bottom-10 -left-10 md:bottom-20 md:left-20 w-44 h-44 md:w-64 md:h-64 rounded-full blur-3xl float-4 ${
+          darkMode ? 'bg-indigo-500 opacity-20' : 'bg-indigo-300 opacity-30'
         }`}></div>
         
         {/* Orb 5 - Center floating */}
-        <div className={`absolute top-1/3 left-1/4 w-36 h-36 md:w-56 md:h-56 rounded-full blur-3xl opacity-10 float-5 ${
-          darkMode ? 'bg-violet-500' : 'bg-violet-400'
+        <div className={`absolute top-1/3 left-1/4 w-36 h-36 md:w-56 md:h-56 rounded-full blur-3xl float-5 ${
+          darkMode ? 'bg-violet-500 opacity-10' : 'bg-violet-300 opacity-20'
         }`}></div>
 
         {/* Orb 6 - Middle right */}
-        <div className={`absolute top-1/2 right-1/4 w-40 h-40 md:w-72 md:h-72 rounded-full blur-3xl opacity-12 float-6 ${
-          darkMode ? 'bg-fuchsia-500' : 'bg-fuchsia-400'
+        <div className={`absolute top-1/2 right-1/4 w-40 h-40 md:w-72 md:h-72 rounded-full blur-3xl float-6 ${
+          darkMode ? 'bg-fuchsia-500 opacity-12' : 'bg-fuchsia-300 opacity-22'
         }`}></div>
       </div>
 
@@ -187,7 +179,7 @@ export default function AlignAiHero() {
             }`}>
               Unleash Maximum
               <br />
-              <span className="bg-gradient-to-r from-purple-400 via-purple-500 to-indigo-500 bg-clip-text text-transparent">
+              <span className="bg-gradient-to-r from-purple-500 via-purple-600 to-indigo-600 bg-clip-text text-transparent">
                 Productivity
               </span>
             </h2>
@@ -195,11 +187,11 @@ export default function AlignAiHero() {
             {/* Dynamic Feature Display */}
             <div className="mb-8 h-16 flex items-center justify-center">
               <p className={`text-xl md:text-2xl transition-all duration-500 ${
-                darkMode ? 'text-gray-300' : 'text-gray-600'
+                darkMode ? 'text-gray-300' : 'text-gray-700'
               }`}>
                 Powered by AI for seamless{' '}
                 <span className="inline-block min-w-[200px] text-left">
-                  <span className="text-purple-500 font-semibold transition-all duration-500">
+                  <span className="text-purple-600 font-semibold transition-all duration-500">
                     {features[currentFeature]}
                   </span>
                 </span>
@@ -220,25 +212,13 @@ export default function AlignAiHero() {
               {!isSignedIn ? (
                 <>
                   <button 
-                    onClick={() => router.push('/sign-up')}
                     className="group bg-gradient-to-r from-purple-500 to-indigo-600 hover:from-purple-600 hover:to-indigo-700 text-white px-8 py-4 rounded-xl font-semibold text-lg transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-purple-500/25 flex items-center"
                   >
                     Coming soon! stay tuned.
-                    {/* <ChevronRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" /> */}
                   </button>
-                  
-                  {/* <button className={`group px-8 py-4 rounded-xl font-semibold text-lg transition-all duration-300 flex items-center border-2 ${
-                    darkMode 
-                      ? 'border-white/20 text-white hover:bg-white/10 hover:border-white/30' 
-                      : 'border-gray-300 text-gray-700 hover:bg-gray-50 hover:border-gray-400'
-                  }`}>
-                    <Play className="mr-2 w-5 h-5 group-hover:scale-110 transition-transform" />
-                    Watch Demo
-                  </button> */}
                 </>
               ) : (
                 <button 
-                  onClick={() => router.push('/dashboard')}
                   className="group bg-gradient-to-r from-purple-500 to-indigo-600 hover:from-purple-600 hover:to-indigo-700 text-white px-8 py-4 rounded-xl font-semibold text-lg transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-purple-500/25 flex items-center"
                 >
                   Go to Dashboard
@@ -246,13 +226,6 @@ export default function AlignAiHero() {
                 </button>
               )}
             </div>
-
-            {/* Trust Indicators */}
-            {/* <div className={`text-sm mb-12 ${
-              darkMode ? 'text-gray-500' : 'text-gray-500'
-            }`}>
-              <p>Trusted by 500+ teams worldwide • No credit card required</p>
-            </div> */}
           </div>
 
           {/* Feature Cards - Enhanced contrast for dark mode */}
@@ -294,7 +267,7 @@ export default function AlignAiHero() {
                 className={`p-8 rounded-2xl backdrop-blur-sm transition-all duration-300 hover:scale-105 shadow-lg ${
                   darkMode 
                     ? 'bg-gray-900/40 hover:bg-gray-800/50 border border-gray-700/50 hover:border-gray-600/70' 
-                    : 'bg-white/70 hover:bg-white/90 border border-gray-200 hover:border-gray-300 shadow-gray-200/50'
+                    : 'bg-white/80 hover:bg-white border border-purple-100 hover:border-purple-200 shadow-purple-100/50'
                 }`}
               >
                 <feature.icon className={`w-12 h-12 mb-6 ${
@@ -319,7 +292,7 @@ export default function AlignAiHero() {
             <div className={`py-8 rounded-2xl backdrop-blur-sm shadow-lg ${
               darkMode 
                 ? 'bg-gray-900/40 border border-gray-700/50' 
-                : 'bg-white/70 border border-gray-200 shadow-gray-200/50'
+                : 'bg-white/80 border border-purple-100 shadow-purple-100/50'
             }`}>
               <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
                 {[
@@ -328,7 +301,11 @@ export default function AlignAiHero() {
                   { number: "98%", label: "Reduction in Manual Follow-Ups" }
                 ].map((stat, index) => (
                   <div key={index} className="space-y-3">
-                    <div className="text-4xl font-bold bg-gradient-to-r from-purple-400 to-indigo-500 bg-clip-text text-transparent">
+                    <div className={`text-4xl font-bold bg-gradient-to-r bg-clip-text text-transparent ${
+                      darkMode 
+                        ? 'from-purple-400 to-indigo-500' 
+                        : 'from-purple-600 to-indigo-600'
+                    }`}>
                       {stat.number}
                     </div>
                     <div className={`text-sm font-medium ${
@@ -343,7 +320,6 @@ export default function AlignAiHero() {
           </div>
         </div>
       </div>
-      <Toaster/>
     </div>
   );
 }
