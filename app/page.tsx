@@ -75,22 +75,6 @@ export default function AlignAiHero() {
               >
                 {darkMode ? <Sun size={18} /> : <Moon size={18} />}
               </button>
-             
-
-              {/* Sign In Button - only show if not signed in */}
-              {/* {!isSignedIn && (
-                <button 
-                  onClick={() => router.push('/sign-in')}
-                  className={`group px-6 py-2.5 rounded-xl font-medium text-sm transition-all duration-300 backdrop-blur-sm flex items-center ${
-                    darkMode 
-                      ? 'bg-purple-500/20 hover:bg-purple-500/30 text-purple-300 border border-purple-500/30 hover:border-purple-500/50' 
-                      : 'bg-purple-50 hover:bg-purple-100 text-purple-700 border border-purple-200 hover:border-purple-300'
-                  }`}
-                >
-                  Coming Soon!
-                   <ArrowRight className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" /> 
-                </button>
-              )} */}
 
               
             </div>
@@ -98,16 +82,78 @@ export default function AlignAiHero() {
         </div>
       </header>
 
-      {/* Animated Background Orbs - Further reduced opacity */}
-      <div className="absolute inset-0 overflow-hidden">
-        <div className={`absolute top-20 left-10 w-72 h-72 rounded-full blur-3xl opacity-10 animate-pulse ${
+      {/* Animated Background Orbs - Dynamic floating effect */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        <style jsx>{`
+          @keyframes float1 {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            25% { transform: translate(200px, -150px) scale(1.1); }
+            50% { transform: translate(-100px, -300px) scale(0.9); }
+            75% { transform: translate(150px, -200px) scale(1.05); }
+          }
+          @keyframes float2 {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            33% { transform: translate(-250px, 200px) scale(1.15); }
+            66% { transform: translate(100px, 100px) scale(0.85); }
+          }
+          @keyframes float3 {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            25% { transform: translate(-180px, -100px) scale(0.95); }
+            50% { transform: translate(220px, 180px) scale(1.1); }
+            75% { transform: translate(-120px, 80px) scale(0.9); }
+          }
+          @keyframes float4 {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            30% { transform: translate(150px, -200px) scale(1.05); }
+            60% { transform: translate(-200px, 150px) scale(0.95); }
+          }
+          @keyframes float5 {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            20% { transform: translate(-150px, 180px) scale(1.08); }
+            40% { transform: translate(180px, -150px) scale(0.92); }
+            60% { transform: translate(-100px, -180px) scale(1.12); }
+            80% { transform: translate(120px, 120px) scale(0.88); }
+          }
+          @keyframes float6 {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            50% { transform: translate(-300px, 250px) scale(1.2); }
+          }
+          .float-1 { animation: float1 20s ease-in-out infinite; }
+          .float-2 { animation: float2 25s ease-in-out infinite; }
+          .float-3 { animation: float3 18s ease-in-out infinite; }
+          .float-4 { animation: float4 22s ease-in-out infinite; }
+          .float-5 { animation: float5 28s ease-in-out infinite; }
+          .float-6 { animation: float6 30s ease-in-out infinite; }
+        `}</style>
+        
+        {/* Orb 1 - Top Left */}
+        <div className={`absolute -top-20 -left-20 md:top-10 md:left-10 w-48 h-48 md:w-80 md:h-80 rounded-full blur-3xl opacity-20 float-1 ${
           darkMode ? 'bg-purple-500' : 'bg-purple-400'
         }`}></div>
-        <div className={`absolute bottom-20 right-10 w-96 h-96 rounded-full blur-3xl animate-pulse delay-1000 ${
-          darkMode ? 'bg-blue-500 opacity-2' : 'bg-blue-400 opacity-10'
+        
+        {/* Orb 2 - Top Right */}
+        <div className={`absolute -top-10 -right-10 md:top-20 md:right-20 w-40 h-40 md:w-72 md:h-72 rounded-full blur-3xl opacity-15 float-2 ${
+          darkMode ? 'bg-pink-500' : 'bg-pink-400'
         }`}></div>
-        <div className={`absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-64 h-64 rounded-full blur-3xl animate-pulse delay-2000 ${
-          darkMode ? 'bg-indigo-500 opacity-3' : 'bg-indigo-400 opacity-5'
+        
+        {/* Orb 3 - Bottom Right */}
+        <div className={`absolute -bottom-20 -right-20 md:bottom-10 md:right-10 w-56 h-56 md:w-96 md:h-96 rounded-full blur-3xl opacity-15 float-3 ${
+          darkMode ? 'bg-blue-500' : 'bg-blue-400'
+        }`}></div>
+        
+        {/* Orb 4 - Bottom Left */}
+        <div className={`absolute -bottom-10 -left-10 md:bottom-20 md:left-20 w-44 h-44 md:w-64 md:h-64 rounded-full blur-3xl opacity-20 float-4 ${
+          darkMode ? 'bg-indigo-500' : 'bg-indigo-400'
+        }`}></div>
+        
+        {/* Orb 5 - Center floating */}
+        <div className={`absolute top-1/3 left-1/4 w-36 h-36 md:w-56 md:h-56 rounded-full blur-3xl opacity-10 float-5 ${
+          darkMode ? 'bg-violet-500' : 'bg-violet-400'
+        }`}></div>
+
+        {/* Orb 6 - Middle right */}
+        <div className={`absolute top-1/2 right-1/4 w-40 h-40 md:w-72 md:h-72 rounded-full blur-3xl opacity-12 float-6 ${
+          darkMode ? 'bg-fuchsia-500' : 'bg-fuchsia-400'
         }`}></div>
       </div>
 
