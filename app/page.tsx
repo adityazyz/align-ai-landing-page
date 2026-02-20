@@ -1,4 +1,5 @@
 "use client";
+import PreRegisterModal from '@/components/PreRegisterModal';
 import React, { useState, useEffect } from 'react';
 import {
   Brain, BookOpen, MessageSquare, BarChart3, CheckCircle2,
@@ -53,111 +54,6 @@ function TypingEffect() {
   );
 }
 
-/* ─── pre-register modal ─── */
-function PreRegisterModal({ dark, onClose }: { dark: boolean; onClose: () => void }) {
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-  const [role, setRole] = useState('');
-  const [org, setOrg] = useState('');
-  const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setStatus('loading');
-    try {
-      // Using EmailJS public API — replace SERVICE_ID, TEMPLATE_ID, PUBLIC_KEY with real values
-      const payload = {
-        service_id: 'YOUR_SERVICE_ID',
-        template_id: 'YOUR_TEMPLATE_ID',
-        user_id: 'YOUR_PUBLIC_KEY',
-        template_params: {
-          from_name: name,
-          from_email: email,
-          role,
-          organization: org,
-          to_email: 'aadityadagr@gmail.com',
-        },
-      };
-      const res = await fetch('https://api.emailjs.com/api/v1.0/email/send', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(payload),
-      });
-      if (res.ok) { setStatus('success'); } else { setStatus('error'); }
-    } catch {
-      setStatus('error');
-    }
-  };
-
-  const bg = dark ? 'bg-[#0d1117]' : 'bg-white';
-  const border = dark ? 'border-white/10' : 'border-gray-200';
-  const text = dark ? 'text-white' : 'text-gray-900';
-  const muted = dark ? 'text-gray-400' : 'text-gray-500';
-  const inputCls = `w-full px-4 py-3 rounded-xl text-sm outline-none transition-all border ${
-    dark
-      ? 'bg-white/5 border-white/10 text-white placeholder-gray-500 focus:border-purple-500/60'
-      : 'bg-gray-50 border-gray-200 text-gray-900 placeholder-gray-400 focus:border-purple-400'
-  }`;
-
-  return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
-      <div className="absolute inset-0 bg-black/60 backdrop-blur-sm" onClick={onClose} />
-      <div className={`relative w-full max-w-md rounded-2xl border p-8 shadow-2xl ${bg} ${border}`}>
-        <button onClick={onClose} className={`absolute top-4 right-4 p-1.5 rounded-lg transition-colors ${dark ? 'text-gray-400 hover:bg-white/10 hover:text-white' : 'text-gray-400 hover:bg-gray-100'}`}>
-          <X size={16} />
-        </button>
-
-        {status === 'success' ? (
-          <div className="text-center py-8">
-            <div className="w-16 h-16 rounded-full bg-emerald-500/20 flex items-center justify-center mx-auto mb-4">
-              <CheckCircle2 size={32} className="text-emerald-400" />
-            </div>
-            <h3 className={`text-xl font-bold mb-2 ${text}`}>You are on the list!</h3>
-            <p className={`text-sm ${muted}`}>We will reach out to you at <span className="text-emerald-400">{email}</span> when AlignAI launches.</p>
-          </div>
-        ) : (
-          <>
-            <div className="mb-6">
-              <div className="inline-flex items-center gap-2 px-2.5 py-1 rounded-full bg-purple-500/15 border border-purple-500/25 text-purple-400 text-xs font-medium mb-3">
-                <Sparkles size={11} /> Early Access
-              </div>
-              <h3 className={`text-2xl font-bold mb-1 ${text}`}>Get early access</h3>
-              <p className={`text-sm ${muted}`}>Be among the first educators to use AlignAI when we launch.</p>
-            </div>
-
-            <form onSubmit={handleSubmit} className="space-y-4">
-              <input required className={inputCls} placeholder="Your name" value={name} onChange={e => setName(e.target.value)} />
-              <input required type="email" className={inputCls} placeholder="Email address" value={email} onChange={e => setEmail(e.target.value)} />
-              <select required className={inputCls} value={role} onChange={e => setRole(e.target.value)}>
-                <option value="">I am a...</option>
-                <option>School Teacher</option>
-                <option>Coaching Institute Owner</option>
-                <option>College Professor</option>
-                <option>Online Educator</option>
-                <option>School Administrator</option>
-                <option>Other</option>
-              </select>
-              <input className={inputCls} placeholder="School / Institute name (optional)" value={org} onChange={e => setOrg(e.target.value)} />
-
-              {status === 'error' && (
-                <p className="text-rose-400 text-xs text-center">Something went wrong. Please try again or email us directly.</p>
-              )}
-
-              <button
-                type="submit"
-                disabled={status === 'loading'}
-                className="w-full py-3 rounded-xl font-semibold text-sm text-white bg-gradient-to-r from-purple-500 to-emerald-500 hover:from-purple-400 hover:to-emerald-400 transition-all duration-200 hover:scale-[1.02] flex items-center justify-center gap-2 disabled:opacity-60 disabled:cursor-not-allowed"
-              >
-                {status === 'loading' ? <Loader2 size={16} className="animate-spin" /> : null}
-                {status === 'loading' ? 'Submitting...' : 'Request Early Access'}
-              </button>
-            </form>
-          </>
-        )}
-      </div>
-    </div>
-  );
-}
 
 /* ─── data ─── */
 const outcomes = [
