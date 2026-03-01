@@ -3,7 +3,9 @@ import PreRegisterModal from '@/components/PreRegisterModal';
 import React, { useState } from 'react';
 import {
   Moon, Sun, ArrowRight, Sparkles, CheckCircle2,
-  Clock, Bell, Star, Zap, Shield, Gift, Mail
+  Clock, Bell, Star, Zap, Shield, Gift, Mail,
+  X,
+  Menu
 } from 'lucide-react';
 import Image from 'next/image';
 
@@ -25,6 +27,9 @@ export default function PricingPage() {
   const [dark, setDark] = useState(true);
   const [showModal, setShowModal] = useState(false);
 
+  const [mobileOpen, setMobileOpen] = useState(false);
+  const textCls = dark ? "text-white" : "text-gray-900";
+
   const bg = dark ? "bg-[#080c12]" : "bg-gradient-to-br from-slate-50 via-white to-purple-50";
   const text = dark ? "text-white" : "text-gray-900";
   const muted = dark ? "text-gray-400" : "text-gray-500";
@@ -39,29 +44,117 @@ export default function PricingPage() {
         </div>
       )}
 
-      {/* header */}
-      <header className={`sticky top-0 z-50 backdrop-blur-xl border-b ${dark ? "border-white/[0.06] bg-[#080c12]/80" : "border-gray-200/80 bg-white/80"}`}>
+       {/* ─── MAIN HEADER ─── */}
+      <header
+        className={`sticky top-0 z-50 backdrop-blur-xl border-b ${dark ? "border-white/[0.06] bg-[#080c12]/80" : "border-gray-200/80 bg-white/80"}`}
+      >
         <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+          {/* Logo */}
           <a href="/" className="flex items-center gap-3">
-            <div className={`w-9 h-9 rounded-xl flex items-center justify-center overflow-hidden ${dark ? "bg-purple-500/15" : "bg-purple-100"}`}>
+            <div
+              className={`w-9 h-9 rounded-xl flex items-center justify-center overflow-hidden ${dark ? "bg-purple-500/15" : "bg-purple-100"}`}
+            >
               <Image src="/svg-logo.svg" alt="AlignAI" width={28} height={28} />
             </div>
-            <span className={`text-xl font-bold tracking-tight ${text}`}>Align<span className="text-purple-400">AI</span></span>
+            <span className={`text-xl font-bold tracking-tight ${textCls}`}>
+              Align<span className="text-purple-400">AI</span>
+            </span>
           </a>
+
+          {/* Desktop Nav */}
           <nav className="hidden md:flex items-center gap-8">
-            {NAV_LINKS.map(n => (
-              <a key={n.label} href={n.href} className={`text-sm font-medium transition-colors ${n.href === '/pricing' ? (dark ? 'text-white' : 'text-gray-900') : (dark ? "text-gray-400 hover:text-white" : "text-gray-600 hover:text-gray-900")}`}>{n.label}</a>
+            {NAV_LINKS.map((n) => (
+              <a
+                key={n.label}
+                href={n.href}
+                className={`text-sm font-medium transition-colors ${
+                  n.href === "/features"
+                    ? dark
+                      ? "text-white"
+                      : "text-gray-900"
+                    : dark
+                      ? "text-gray-400 hover:text-white"
+                      : "text-gray-600 hover:text-gray-900"
+                }`}
+              >
+                {n.label}
+              </a>
             ))}
           </nav>
-          <div className="flex items-center gap-3">
-            <button onClick={() => setDark(!dark)} className={`p-2 rounded-lg transition-colors ${dark ? "text-gray-400 hover:text-white hover:bg-white/10" : "text-gray-500 hover:bg-gray-100"}`}>
+
+          {/* Desktop Actions */}
+          <div className="hidden md:flex items-center gap-3">
+            <button
+              onClick={() => setDark(!dark)}
+              className={`p-2 rounded-lg transition-colors ${dark ? "text-gray-400 hover:text-white hover:bg-white/10" : "text-gray-500 hover:bg-gray-100"}`}
+            >
               {dark ? <Sun size={16} /> : <Moon size={16} />}
             </button>
-            <button onClick={() => setShowModal(true)} className="px-4 py-2 bg-gradient-to-r from-purple-500 to-emerald-500 hover:from-purple-400 hover:to-emerald-400 text-white text-sm font-semibold rounded-lg transition-all duration-200 hover:scale-105">
+            <button
+              onClick={() => setShowModal(true)}
+              className="px-4 py-2 bg-gradient-to-r from-purple-500 to-emerald-500 hover:from-purple-400 hover:to-emerald-400 text-white text-sm font-semibold rounded-lg transition-all duration-200 hover:scale-105"
+            >
               Get Early Access
             </button>
           </div>
+
+          {/* Mobile: theme + hamburger */}
+          <div className="flex md:hidden items-center gap-2">
+            <button
+              onClick={() => setDark(!dark)}
+              className={`p-2 rounded-lg transition-colors ${dark ? "text-gray-400 hover:text-white hover:bg-white/10" : "text-gray-500 hover:bg-gray-100"}`}
+            >
+              {dark ? <Sun size={16} /> : <Moon size={16} />}
+            </button>
+            <button
+              onClick={() => setMobileOpen((o) => !o)}
+              className={`p-2 rounded-lg transition-colors ${dark ? "text-gray-400 hover:text-white hover:bg-white/10" : "text-gray-500 hover:bg-gray-100"}`}
+            >
+              {mobileOpen ? <X size={20} /> : <Menu size={20} />}
+            </button>
+          </div>
         </div>
+
+        {/* Mobile dropdown */}
+        {mobileOpen && (
+          <div
+            className={`md:hidden border-t ${dark ? "border-white/[0.06] bg-[#080c12]" : "border-gray-100 bg-white"}`}
+          >
+            <nav className="flex flex-col px-6 py-4 gap-1">
+              {NAV_LINKS.map((n) => (
+                <a
+                  key={n.label}
+                  href={n.href}
+                  onClick={() => setMobileOpen(false)}
+                  className={`text-sm font-medium px-3 py-2.5 rounded-lg transition-colors ${
+                    n.href === "/features"
+                      ? dark
+                        ? "text-white bg-white/10"
+                        : "text-gray-900 bg-gray-100"
+                      : dark
+                        ? "text-gray-300 hover:text-white hover:bg-white/10"
+                        : "text-gray-600 hover:text-gray-900 hover:bg-gray-50"
+                  }`}
+                >
+                  {n.label}
+                </a>
+              ))}
+              <div
+                className={`pt-3 mt-2 border-t ${dark ? "border-white/10" : "border-gray-100"}`}
+              >
+                <button
+                  onClick={() => {
+                    setShowModal(true);
+                    setMobileOpen(false);
+                  }}
+                  className="w-full px-4 py-2.5 bg-gradient-to-r from-purple-500 to-emerald-500 hover:from-purple-400 hover:to-emerald-400 text-white text-sm font-semibold rounded-lg transition-all duration-200"
+                >
+                  Get Early Access
+                </button>
+              </div>
+            </nav>
+          </div>
+        )}
       </header>
 
       {/* main coming soon content */}

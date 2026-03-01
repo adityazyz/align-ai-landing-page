@@ -4,11 +4,11 @@ import React, { useState, useEffect } from 'react';
 import {
   Brain, BookOpen, MessageSquare, BarChart3, CheckCircle2,
   FileText, Moon, Sun, Users, ClipboardList, GraduationCap,
-  Star, ArrowRight, Play, Sparkles, Shield, X, Loader2
+  Star, ArrowRight, Play, Sparkles, Shield, Menu, X, Loader2
 } from 'lucide-react';
 import Image from 'next/image';
 
-/* ─── shared nav links (no "For Schools") ─── */
+/* ─── shared nav links ─── */
 const NAV_LINKS = [
   { label: "Features", href: "/features" },
   { label: "How it works", href: "/how-it-works" },
@@ -53,7 +53,6 @@ function TypingEffect() {
     </span>
   );
 }
-
 
 /* ─── data ─── */
 const outcomes = [
@@ -120,10 +119,13 @@ const audiences = [
 
 /* ─── shared header component ─── */
 export function SiteHeader({ dark, setDark, onPreRegister }: { dark: boolean; setDark: (v: boolean) => void; onPreRegister: () => void }) {
+  const [mobileOpen, setMobileOpen] = useState(false);
   const text = dark ? "text-white" : "text-gray-900";
+
   return (
     <header className={`sticky top-0 z-50 backdrop-blur-xl border-b ${dark ? "border-white/[0.06] bg-[#080c12]/80" : "border-gray-200/80 bg-white/80"}`}>
       <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+        {/* Logo */}
         <a href="/" className="flex items-center gap-3">
           <div className={`w-9 h-9 rounded-xl flex items-center justify-center overflow-hidden ${dark ? "bg-purple-500/15" : "bg-purple-100"}`}>
             <Image src="/svg-logo.svg" alt="AlignAI Logo" width={28} height={28} />
@@ -133,13 +135,15 @@ export function SiteHeader({ dark, setDark, onPreRegister }: { dark: boolean; se
           </span>
         </a>
 
+        {/* Desktop Nav */}
         <nav className="hidden md:flex items-center gap-8">
           {NAV_LINKS.map(n => (
             <a key={n.label} href={n.href} className={`text-sm font-medium transition-colors ${dark ? "text-gray-400 hover:text-white" : "text-gray-600 hover:text-gray-900"}`}>{n.label}</a>
           ))}
         </nav>
 
-        <div className="flex items-center gap-3">
+        {/* Desktop Actions */}
+        <div className="hidden md:flex items-center gap-3">
           <button onClick={() => setDark(!dark)} className={`p-2 rounded-lg transition-colors ${dark ? "text-gray-400 hover:text-white hover:bg-white/10" : "text-gray-500 hover:bg-gray-100"}`}>
             {dark ? <Sun size={16} /> : <Moon size={16} />}
           </button>
@@ -147,7 +151,46 @@ export function SiteHeader({ dark, setDark, onPreRegister }: { dark: boolean; se
             Get Early Access
           </button>
         </div>
+
+        {/* Mobile: theme toggle + hamburger */}
+        <div className="flex md:hidden items-center gap-2">
+          <button onClick={() => setDark(!dark)} className={`p-2 rounded-lg transition-colors ${dark ? "text-gray-400 hover:text-white hover:bg-white/10" : "text-gray-500 hover:bg-gray-100"}`}>
+            {dark ? <Sun size={16} /> : <Moon size={16} />}
+          </button>
+          <button
+            onClick={() => setMobileOpen(o => !o)}
+            className={`p-2 rounded-lg transition-colors ${dark ? "text-gray-400 hover:text-white hover:bg-white/10" : "text-gray-500 hover:bg-gray-100"}`}
+          >
+            {mobileOpen ? <X size={20} /> : <Menu size={20} />}
+          </button>
+        </div>
       </div>
+
+      {/* Mobile Menu Dropdown */}
+      {mobileOpen && (
+        <div className={`md:hidden border-t ${dark ? "border-white/[0.06] bg-[#080c12]" : "border-gray-100 bg-white"}`}>
+          <nav className="flex flex-col px-6 py-4 gap-1">
+            {NAV_LINKS.map(n => (
+              <a
+                key={n.label}
+                href={n.href}
+                onClick={() => setMobileOpen(false)}
+                className={`text-sm font-medium px-3 py-2.5 rounded-lg transition-colors ${dark ? "text-gray-300 hover:text-white hover:bg-white/10" : "text-gray-600 hover:text-gray-900 hover:bg-gray-50"}`}
+              >
+                {n.label}
+              </a>
+            ))}
+            <div className="pt-3 mt-2  ${dark ? 'border-white/10' : 'border-gray-100'}">
+              <button
+                onClick={() => { onPreRegister(); setMobileOpen(false); }}
+                className="w-full px-4 py-2.5 bg-gradient-to-r from-purple-500 to-emerald-500 hover:from-purple-400 hover:to-emerald-400 text-white text-sm font-semibold rounded-lg transition-all duration-200"
+              >
+                Get Early Access
+              </button>
+            </div>
+          </nav>
+        </div>
+      )}
     </header>
   );
 }
@@ -220,10 +263,10 @@ export default function LandingPage() {
         </p>
 
         <div className="flex flex-col sm:flex-row gap-3 justify-center mb-16">
-          <button onClick={() => setShowModal(true)} className="inline-flex items-center gap-2 px-7 py-3.5 bg-gradient-to-r from-purple-500 to-emerald-500 hover:from-purple-400 hover:to-emerald-400 text-white font-semibold rounded-xl transition-all duration-200 hover:scale-105 shadow-lg shadow-purple-500/20">
+          <button onClick={() => setShowModal(true)} className="inline-flex items-center justify-center gap-2 px-7 py-3.5 bg-gradient-to-r from-purple-500 to-emerald-500 hover:from-purple-400 hover:to-emerald-400 text-white font-semibold rounded-xl transition-all duration-200 hover:scale-105 shadow-lg shadow-purple-500/20">
             Get Early Access <ArrowRight size={16} />
           </button>
-          <a href="/how-it-works" className={`inline-flex items-center gap-2 px-7 py-3.5 rounded-xl font-semibold transition-all duration-200 border ${dark ? "border-white/15 text-gray-300 hover:bg-white/10 hover:text-white" : "border-gray-300 text-gray-700 hover:bg-gray-50"}`}>
+          <a href="/how-it-works" className={`inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-xl font-semibold transition-all duration-200 border ${dark ? "border-white/15 text-gray-300 hover:bg-white/10 hover:text-white" : "border-gray-300 text-gray-700 hover:bg-gray-50"}`}>
             <Play size={14} className="fill-current" /> See how it works
           </a>
         </div>
@@ -371,10 +414,10 @@ export default function LandingPage() {
           </h2>
           <p className={`text-lg mb-10 ${muted}`}>Join teachers saving 70% of their admin time every week.</p>
           <div className="flex flex-col sm:flex-row gap-3 justify-center">
-            <button onClick={() => setShowModal(true)} className="inline-flex items-center gap-2 px-8 py-4 bg-gradient-to-r from-purple-500 to-emerald-500 hover:from-purple-400 hover:to-emerald-400 text-white font-semibold rounded-xl transition-all duration-200 hover:scale-105 shadow-lg shadow-purple-500/20 text-base">
+            <button onClick={() => setShowModal(true)} className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-gradient-to-r from-purple-500 to-emerald-500 hover:from-purple-400 hover:to-emerald-400 text-white font-semibold rounded-xl transition-all duration-200 hover:scale-105 shadow-lg shadow-purple-500/20 text-base">
               Get Early Access <ArrowRight size={18} />
             </button>
-            <a href="/how-it-works" className={`inline-flex items-center gap-2 px-8 py-4 rounded-xl font-semibold transition-all duration-200 border text-base ${dark ? "border-white/15 text-gray-300 hover:bg-white/10 hover:text-white" : "border-gray-300 text-gray-700 hover:bg-gray-50"}`}>
+            <a href="/how-it-works" className={`inline-flex items-center justify-center gap-2 px-8 py-4 rounded-xl font-semibold transition-all duration-200 border text-base ${dark ? "border-white/15 text-gray-300 hover:bg-white/10 hover:text-white" : "border-gray-300 text-gray-700 hover:bg-gray-50"}`}>
               See how it works
             </a>
           </div>
