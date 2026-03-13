@@ -202,7 +202,7 @@ export default function HowItWorksPage() {
                 key={n.label}
                 href={n.href}
                 className={`text-sm font-medium transition-colors ${
-                  n.href === "/features"
+                  n.href === "/how-it-works"
                     ? dark
                       ? "text-white"
                       : "text-gray-900"
@@ -261,7 +261,7 @@ export default function HowItWorksPage() {
                   href={n.href}
                   onClick={() => setMobileOpen(false)}
                   className={`text-sm font-medium px-3 py-2.5 rounded-lg transition-colors ${
-                    n.href === "/features"
+                    n.href === "/how-it-works"
                       ? dark
                         ? "text-white bg-white/10"
                         : "text-gray-900 bg-gray-100"

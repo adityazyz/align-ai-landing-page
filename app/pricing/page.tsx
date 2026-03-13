@@ -68,7 +68,7 @@ export default function PricingPage() {
                 key={n.label}
                 href={n.href}
                 className={`text-sm font-medium transition-colors ${
-                  n.href === "/features"
+                  n.href === "/pricing"
                     ? dark
                       ? "text-white"
                       : "text-gray-900"
@@ -127,7 +127,7 @@ export default function PricingPage() {
                   href={n.href}
                   onClick={() => setMobileOpen(false)}
                   className={`text-sm font-medium px-3 py-2.5 rounded-lg transition-colors ${
-                    n.href === "/features"
+                    n.href === "/pricing"
                       ? dark
                         ? "text-white bg-white/10"
                         : "text-gray-900 bg-gray-100"
