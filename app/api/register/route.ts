@@ -3,12 +3,12 @@ import nodemailer from 'nodemailer';
 
 export async function POST(req: NextRequest) {
   try {
-    const { name, email, role, organization } = await req.json();
+    const { name, email, phone, role, organization } = await req.json();
 
     // Validate required fields
-    if (!name || !email || !role) {
+    if (!name || !email || !phone || !role) {
       return NextResponse.json(
-        { error: 'Name, email, and role are required.' },
+        { error: 'Name, email, phone number, and role are required.' },
         { status: 400 }
       );
     }
@@ -35,10 +35,26 @@ export async function POST(req: NextRequest) {
           </div>
           <h2 style="font-size: 18px; font-weight: 700; margin: 0 0 20px;">You have a new early access request</h2>
           <table style="width: 100%; border-collapse: collapse;">
-            <tr><td style="padding: 10px 0; border-bottom: 1px solid rgba(255,255,255,0.06); color: #8b949e; font-size: 13px; width: 120px;">Name</td><td style="padding: 10px 0; border-bottom: 1px solid rgba(255,255,255,0.06); font-size: 13px;">${name}</td></tr>
-            <tr><td style="padding: 10px 0; border-bottom: 1px solid rgba(255,255,255,0.06); color: #8b949e; font-size: 13px;">Email</td><td style="padding: 10px 0; border-bottom: 1px solid rgba(255,255,255,0.06); font-size: 13px;"><a href="mailto:${email}" style="color: #10b981; text-decoration: none;">${email}</a></td></tr>
-            <tr><td style="padding: 10px 0; border-bottom: 1px solid rgba(255,255,255,0.06); color: #8b949e; font-size: 13px;">Role</td><td style="padding: 10px 0; border-bottom: 1px solid rgba(255,255,255,0.06); font-size: 13px;">${role}</td></tr>
-            <tr><td style="padding: 10px 0; color: #8b949e; font-size: 13px;">Organization</td><td style="padding: 10px 0; font-size: 13px;">${organization || 'Not provided'}</td></tr>
+            <tr>
+              <td style="padding: 10px 0; border-bottom: 1px solid rgba(255,255,255,0.06); color: #8b949e; font-size: 13px; width: 120px;">Name</td>
+              <td style="padding: 10px 0; border-bottom: 1px solid rgba(255,255,255,0.06); font-size: 13px;">${name}</td>
+            </tr>
+            <tr>
+              <td style="padding: 10px 0; border-bottom: 1px solid rgba(255,255,255,0.06); color: #8b949e; font-size: 13px;">Email</td>
+              <td style="padding: 10px 0; border-bottom: 1px solid rgba(255,255,255,0.06); font-size: 13px;"><a href="mailto:${email}" style="color: #10b981; text-decoration: none;">${email}</a></td>
+            </tr>
+            <tr>
+              <td style="padding: 10px 0; border-bottom: 1px solid rgba(255,255,255,0.06); color: #8b949e; font-size: 13px;">Phone</td>
+              <td style="padding: 10px 0; border-bottom: 1px solid rgba(255,255,255,0.06); font-size: 13px;"><a href="tel:${phone}" style="color: #10b981; text-decoration: none;">${phone}</a></td>
+            </tr>
+            <tr>
+              <td style="padding: 10px 0; border-bottom: 1px solid rgba(255,255,255,0.06); color: #8b949e; font-size: 13px;">Role</td>
+              <td style="padding: 10px 0; border-bottom: 1px solid rgba(255,255,255,0.06); font-size: 13px;">${role}</td>
+            </tr>
+            <tr>
+              <td style="padding: 10px 0; color: #8b949e; font-size: 13px;">Organization</td>
+              <td style="padding: 10px 0; font-size: 13px;">${organization || 'Not provided'}</td>
+            </tr>
           </table>
           <p style="margin-top: 24px; font-size: 12px; color: #8b949e;">Submitted at ${new Date().toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' })} IST</p>
         </div>
@@ -71,6 +87,15 @@ export async function POST(req: NextRequest) {
               <li>As an early member you get founding member pricing</li>
               <li>Your feedback will directly shape what we build</li>
             </ul>
+          </div>
+
+          <div style="background: rgba(16,185,129,0.08); border: 1px solid rgba(16,185,129,0.2); border-radius: 10px; padding: 20px; margin-bottom: 28px;">
+            <p style="margin: 0 0 8px; font-size: 14px; font-weight: 600; color: #10b981;">Your contact details</p>
+            <p style="margin: 0; color: #8b949e; font-size: 13px;">
+              We'll reach out to you at:<br/>
+              <strong style="color: #e6edf3;">${email}</strong><br/>
+              <strong style="color: #e6edf3;">${phone}</strong>
+            </p>
           </div>
 
           <p style="font-size: 14px; color: #8b949e; margin: 0 0 8px;">
